@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - './data:/var/lib/postgresql/data'
+  pgadmin:
+    image: 'dpage/pgadmin4:latest'
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin@admin
+    ports:
+      - '8080:80'
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - '1025:1025'
+      - '8025:8025'
