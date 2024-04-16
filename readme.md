@@ -33,7 +33,7 @@ Before running this project, make sure you have the following installed:
    ```bash
    npm run dev
    ```
-   
+
 ## API endpoints 
 `base URL: /api/v1`
 ### POST /auth/register
@@ -54,6 +54,15 @@ Before running this project, make sure you have the following installed:
     "password": "string"
   }
   ```
+
+## TODO
+- [x] Add database connection
+- [x] Add password hashing
+- [ ] Add password reset
+- [ ] Add email verification
+- [ ] Add JWT authentication
+- [X] Add user rolesX
+- [ ] Add user avatar
 
 ## License
 
