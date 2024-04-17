@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import AuthService from "../../services/auth";
+import PasswordService from "../../services/auth/Password";
 
 export default class AuthController {
   public static async create(req: Request, res: Response,next: NextFunction) {
@@ -44,7 +45,7 @@ export default class AuthController {
 
       if (!email) return res.status(400).json({ error: "Missing required information" });
 
-      const forgot = await AuthService.forgot(email);
+      const forgot = await PasswordService.forgot(email);
 
       return res.json(forgot);
     } catch (error) {
@@ -61,7 +62,7 @@ export default class AuthController {
       if (!token || !password)
         return res.status(400).json({ error: "Missing required information" });
 
-      const reset = await AuthService.resetPassword(token, password);
+      const reset = await PasswordService.reset(token, password);
 
       return res.json(reset);
     } catch (error) {
