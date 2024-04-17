@@ -21,3 +21,18 @@ model User {
   active Boolean @default(true)
   role Role @default(User)
 }
+
+enum TokenType {
+  Access
+  ResetPassword
+}
+
+model UserToken {
+  id Int @id @default(autoincrement())
+  userId Int
+  tokenType TokenType
+  token String @unique
+  expireAt DateTime
+  used Boolean @default(false)
+	@@map("User_token")
+}

@@ -35,4 +35,37 @@ export default class AuthController {
       next(error);
     }
   }
+
+  public static async forgot(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {
+        body: { email },
+      } = req;
+
+      if (!email) return res.status(400).json({ error: "Missing required information" });
+
+      const forgot = await AuthService.forgot(email);
+
+      return res.json(forgot);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public static async reset(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {
+        body: { token, password },
+      } = req;
+
+      if (!token || !password)
+        return res.status(400).json({ error: "Missing required information" });
+
+      const reset = await AuthService.resetPassword(token, password);
+
+      return res.json(reset);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

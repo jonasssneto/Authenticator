@@ -15,5 +15,18 @@ const create = z.object({
   }),
 });
 
-export { create, login };
+const forgot = z.object({
+  body: z.object({
+    email: z.string().email(),
+  }),
+});
+
+const reset = z.object({
+  body: z.object({
+    token: z.string(),
+    password: z.string().min(8),
+  }),
+});
+
+export { create, forgot, login, reset };
 

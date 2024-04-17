@@ -39,9 +39,7 @@ export default class MailService {
         text,
         html,
       });
-      console.log("Email sent successfully!");
     } catch (error) {
-      console.log(error)
       throw new BadRequestError({ code: 400, message: "Email not sent"})
     }
   }
