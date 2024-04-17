@@ -7,4 +7,4 @@ export default Router()
   .post("/create", validator(create), AuthController.create)
   .post("/login", validator(login), AuthController.login)
   .post("/forgot", validator(forgot), AuthController.forgot)
-  .post("/reset/:token", validator(reset), AuthController.reset);
+  .post("/reset/:token", validator(reset), AuthController.reset)

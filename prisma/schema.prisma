@@ -21,6 +21,7 @@ model User {
   active Boolean @default(true)
   role Role @default(User)
   verified Boolean @default(false)
+  avatar String?
 }
 
 enum TokenType {
