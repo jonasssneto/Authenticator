@@ -22,8 +22,10 @@ const forgot = z.object({
 });
 
 const reset = z.object({
-  body: z.object({
+  params: z.object({
     token: z.string(),
+  }),
+  body: z.object({
     password: z.string().min(8),
   }),
 });

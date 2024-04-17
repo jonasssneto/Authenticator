@@ -1,54 +1,64 @@
-import { UserToken } from '@prisma/client';
-import BadRequestError from '../../../errors/BadRequestError';
-import { sumDays } from '../../../utils/date';
-import { prisma } from '../../prisma';
+import { UserToken } from "@prisma/client";
+import BadRequestError from "../../../errors/BadRequestError";
+import { sumDays } from "../../../utils/date";
+import { prisma } from "../../prisma";
 
 export default class TokenService {
-    protected static async _generateToken() {
-        return crypto.getRandomValues(new Uint16Array(2)).join("-")
+  protected static async _generateToken() {
+    return crypto.getRandomValues(new Uint16Array(2)).join("-");
+  }
+
+  public static async create(
+    userId: UserToken["userId"],
+    tokenType: UserToken["tokenType"]
+  ) {
+    const token = await this._generateToken();
+
+    const expirePeriodPerType = {
+        Access: 1,
+        ResetPassword: 1,
+        Verified: 2,
     }
 
-    public static async create(userId: UserToken["userId"], tokenType: UserToken["tokenType"]) {
-        const token = await this._generateToken()
+    const save = await prisma.userToken.create({
+      data: {
+        token,
+        userId,
+        tokenType,
+        expireAt: sumDays(expirePeriodPerType[tokenType]),
+      },
+    });
+    return save;
+  }
 
-        const save = await prisma.userToken.create({
-            data: {
-                token,
-                userId,
-                tokenType,
-                expireAt: sumDays(2)
-            }
-        })
-        return save
-    }
+  public static async _find(token: UserToken["token"]) {
+    const find = await prisma.userToken.findFirstOrThrow({
+      where: {
+        token,
+        used: false,
+      },
+    });
 
-    public static async find(token: UserToken["token"]) {
-        const find = await prisma.userToken.findFirstOrThrow({
-            where: {
-                token,
-                used: false
-            }
-        })
+    if (find.expireAt < new Date())
+      throw new BadRequestError({
+        code: 400,
+        message: "Token expired",
+        logging: true,
+      });
 
-        if(find.expireAt < new Date()) throw new BadRequestError({
-            code: 400,
-            message: "Token expired",
-            logging: true,
-          });
+    return find;
+  }
 
-        return find
-    }
+  protected static async _use(token: UserToken["token"]) {
+    const use = await prisma.userToken.update({
+      where: {
+        token,
+      },
+      data: {
+        used: true,
+      },
+    });
 
-    public static async use(token: UserToken["token"]) {
-        const use = await prisma.userToken.update({
-            where: {
-                token
-            },
-            data: {
-                used: true
-            }
-        })
-
-        return use
-    }
+    return use;
+  }
 }

@@ -56,7 +56,8 @@ export default class AuthController {
   public static async reset(req: Request, res: Response, next: NextFunction) {
     try {
       const {
-        body: { token, password },
+        params: { token },
+        body: { password },
       } = req;
 
       if (!token || !password)

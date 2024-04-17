@@ -43,7 +43,7 @@ export default class PasswordService {
       }
     
       public static async reset(token: UserToken["token"], password: User["password"]) {
-        const userToken = await TokenService.find(token);
+        const userToken = await TokenService._find(token);
     
         const user = await prisma.user.findUnique({
           where: {
@@ -68,8 +68,6 @@ export default class PasswordService {
             password: hashedPassword,
           },
         });
-    
-        await TokenService.use(token);
     
         return {
           message: "Password reset successful",

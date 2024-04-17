@@ -1,4 +1,4 @@
-import { type User, type UserToken } from '@prisma/client';
+import { type User } from '@prisma/client';
 import BadRequestError from '../../errors/BadRequestError';
 import MailService from '../mail';
 import { prisma } from '../prisma';
@@ -94,9 +94,5 @@ export default class AuthService {
 				username: login.username,
 			},
 		};
-	}
-
-	public static async verify(token: UserToken['token']) {
-
 	}
 }
