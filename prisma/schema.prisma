@@ -20,11 +20,13 @@ model User {
   lastLogin DateTime @default(now())
   active Boolean @default(true)
   role Role @default(User)
+  verified Boolean @default(false)
 }
 
 enum TokenType {
   Access
   ResetPassword
+  Verified
 }
 
 model UserToken {
