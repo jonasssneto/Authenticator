@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(errorHandler)
 app.use(cors(
     {
-        origin: CONFIG.CORS_ORIGIN,
+        origin: "*",
     }
 ));
 
