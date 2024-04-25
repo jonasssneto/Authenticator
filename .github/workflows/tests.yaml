@@ -7,10 +7,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - uses: actions/checkout@v3
-     - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - name: Using Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '21'
-     - run: |
+          node-version: 21.x
+      - name: run install and test
+        run: |
           npm install
           npm run test
