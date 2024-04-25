@@ -32,7 +32,9 @@ export default class AuthService {
 			},
 		});
 		return user;
-	}
+	}  
+
+	
 
 	public static async create(data: ICreate) {
 		const {email, username} = data;
@@ -54,6 +56,8 @@ export default class AuthService {
 		});
 		return create;
 	}
+    
+
 
 	public static async login(data: ILogin) {
 		const {password, username} = data;
