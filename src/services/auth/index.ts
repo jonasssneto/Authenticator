@@ -55,6 +55,8 @@ export default class AuthService {
 		return create;
 	}
 
+	
+
 	public static async login(data: ILogin) {
 		const {password, username} = data;
 
