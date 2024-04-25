@@ -8,11 +8,9 @@ jobs:
 
     steps:
      - uses: actions/checkout@v3
-     - name: Using Node.Js 
      - uses: actions/setup-node@v2
         with:
-          node-version: 21.x
-     - name: Install dependencies
-        run: |
+          node-version: '21'
+     - run: |
           npm install
           npm run test
