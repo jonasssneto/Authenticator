@@ -4,7 +4,7 @@ import { sumDays } from "../../../utils/date";
 import { prisma } from "../../prisma";
 
 export default class TokenService {
-  protected static async _generateToken() {
+  public static async _generateToken() {
     return crypto.getRandomValues(new Uint16Array(2)).join("-");
   }
 

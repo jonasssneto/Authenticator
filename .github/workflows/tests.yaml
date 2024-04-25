@@ -1,0 +1,18 @@
+name: Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+     - uses: actions/checkout@v3
+     - name: Using Node.Js 
+     - uses: actions/setup-node@v2
+        with:
+          node-version: 21.x
+     - name: Install dependencies
+        run: |
+          npm install
+          npm run test

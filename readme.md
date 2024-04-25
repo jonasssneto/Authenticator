@@ -55,15 +55,6 @@ Before running this project, make sure you have the following installed:
   }
   ```
 
-## TODO
-- [x] Add database connection
-- [x] Add password hashing
-- [ ] Add password reset
-- [ ] Add email verification
-- [ ] Add JWT authentication
-- [X] Add user rolesX
-- [ ] Add user avatar
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
